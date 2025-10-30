@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive German Citizenship Test (Einbürgerungstest) - Learn and memorize all questions with English translations">
+    <title>Einbürgerungstest - German Citizenship Test</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🇩🇪 Einbürgerungstest</h1>
+            <p class="subtitle">German Citizenship Test Preparation</p>
+        </header>
+
+        <!-- Main Container -->
+        <main class="main-content">
+            <!-- State Selection Screen -->
+            <div id="state-selection" class="screen active">
+                <div class="card">
+                    <h2>Wählen Sie Ihr Bundesland</h2>
+                    <p class="help-text">Choose your federal state - This is required for state-specific questions</p>
+
+                    <div class="state-grid">
+                        <button class="state-btn" data-state="BW">Baden-Württemberg</button>
+                        <button class="state-btn" data-state="BY">Bayern (Bavaria)</button>
+                        <button class="state-btn" data-state="BE">Berlin</button>
+                        <button class="state-btn" data-state="BB">Brandenburg</button>
+                        <button class="state-btn" data-state="HB">Bremen</button>
+                        <button class="state-btn" data-state="HH">Hamburg</button>
+                        <button class="state-btn" data-state="HE">Hessen</button>
+                        <button class="state-btn" data-state="MV">Mecklenburg-Vorpommern</button>
+                        <button class="state-btn" data-state="NI">Niedersachsen (Lower Saxony)</button>
+                        <button class="state-btn" data-state="NW">Nordrhein-Westfalen</button>
+                        <button class="state-btn" data-state="RP">Rheinland-Pfalz</button>
+                        <button class="state-btn" data-state="SL">Saarland</button>
+                        <button class="state-btn" data-state="SN">Sachsen (Saxony)</button>
+                        <button class="state-btn" data-state="ST">Sachsen-Anhalt</button>
+                        <button class="state-btn" data-state="SH">Schleswig-Holstein</button>
+                        <button class="state-btn" data-state="TH">Thüringen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mode Selection Screen -->
+            <div id="mode-selection" class="screen">
+                <div class="card">
+                    <h2>Wählen Sie einen Modus</h2>
+                    <p class="help-text">Choose a mode to begin your preparation</p>
+
+                    <div class="mode-buttons">
+                        <button id="training-mode-btn" class="mode-btn primary">
+                            <span class="mode-icon">📚</span>
+                            <h3>Training Mode</h3>
+                            <p>Study all questions at your own pace with instant feedback and English translations</p>
+                        </button>
+
+                        <button id="exam-mode-btn" class="mode-btn secondary">
+                            <span class="mode-icon">📝</span>
+                            <h3>Exam Mode</h3>
+                            <p>Simulate the real test: 33 questions, 60 minutes, need 17 correct to pass</p>
+                        </button>
+                    </div>
+
+                    <div class="progress-stats">
+                        <h3>Your Progress</h3>
+                        <div class="stat-item">
+                            <span>Questions Studied:</span>
+                            <strong id="studied-count">0</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Correct Answers:</span>
+                            <strong id="correct-count">0</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Success Rate:</span>
+                            <strong id="success-rate">0%</strong>
+                        </div>
+                    </div>
+
+                    <button id="change-state-btn" class="link-btn">Change Federal State</button>
+                </div>
+            </div>
+
+            <!-- Training Mode Screen -->
+            <div id="training-screen" class="screen">
+                <div class="quiz-header">
+                    <button id="back-to-menu" class="back-btn">← Back to Menu</button>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                        <span class="progress-text" id="progress-text">Question 1 / 310</span>
+                    </div>
+                </div>
+
+                <div class="card quiz-card">
+                    <div class="question-header">
+                        <span class="question-number" id="question-number">Question 1</span>
+                        <span class="question-category" id="question-category">General</span>
+                    </div>
+
+                    <h3 class="question-text" id="question-text"></h3>
+                    <p class="question-translation" id="question-translation"></p>
+
+                    <div class="answers" id="answers-container"></div>
+
+                    <div class="feedback" id="feedback"></div>
+
+                    <div class="navigation-buttons">
+                        <button id="prev-btn" class="nav-btn" disabled>← Previous</button>
+                        <button id="next-btn" class="nav-btn">Next →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exam Mode Screen -->
+            <div id="exam-screen" class="screen">
+                <div class="exam-header">
+                    <button id="exit-exam-btn" class="back-btn">← Exit Exam</button>
+                    <div class="exam-timer">
+                        <span class="timer-label">Time Remaining:</span>
+                        <span class="timer-display" id="timer-display">60:00</span>
+                    </div>
+                </div>
+
+                <div class="card quiz-card">
+                    <div class="question-header">
+                        <span class="question-number" id="exam-question-number">Question 1 / 33</span>
+                    </div>
+
+                    <h3 class="question-text" id="exam-question-text"></h3>
+
+                    <div class="answers" id="exam-answers-container"></div>
+
+                    <div class="exam-navigation">
+                        <button id="exam-prev-btn" class="nav-btn" disabled>← Previous</button>
+                        <span class="answered-count" id="answered-count">Answered: 0 / 33</span>
+                        <button id="exam-next-btn" class="nav-btn">Next →</button>
+                    </div>
+
+                    <button id="submit-exam-btn" class="submit-btn" style="display: none;">Submit Exam</button>
+                </div>
+
+                <div class="question-grid" id="question-grid"></div>
+            </div>
+
+            <!-- Exam Results Screen -->
+            <div id="results-screen" class="screen">
+                <div class="card results-card">
+                    <div class="result-header">
+                        <div class="result-icon" id="result-icon"></div>
+                        <h2 id="result-title"></h2>
+                        <p id="result-message"></p>
+                    </div>
+
+                    <div class="result-stats">
+                        <div class="stat-card">
+                            <h3 id="score-display">0 / 33</h3>
+                            <p>Correct Answers</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="percentage-display">0%</h3>
+                            <p>Score Percentage</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="time-taken-display">0:00</h3>
+                            <p>Time Taken</p>
+                        </div>
+                    </div>
+
+                    <div class="result-actions">
+                        <button id="review-answers-btn" class="btn primary">Review Answers</button>
+                        <button id="retake-exam-btn" class="btn secondary">Take Another Exam</button>
+                        <button id="back-to-menu-from-results" class="btn secondary">Back to Menu</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Unofficial practice tool for the German Einbürgerungstest</p>
+            <p>Study the official BAMF materials at <a href="https://www.bamf.de" target="_blank">www.bamf.de</a></p>
+        </footer>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
