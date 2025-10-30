@@ -85,6 +85,8 @@ The app currently includes:
   - Geography & Structure
 - **2 sample questions per state** (32 state-specific questions total)
 
+**⚠️ To add all 310 official questions:** Use the included **Question Helper Tool** (see below)
+
 ### Question Format
 
 Each question includes:
@@ -104,6 +106,36 @@ Each question includes:
     category: "Category name"
 }
 ```
+
+## 🛠️ Question Helper Tools
+
+This repository includes tools to make adding questions easy:
+
+### 1. Question Helper Tool (`question-helper.html`)
+An interactive web form that:
+- Guides you through entering each question
+- Automatically formats the code
+- Generates proper JSON structure
+- Includes keyword highlighting
+- Validates all fields
+
+**To use:**
+1. Open `question-helper.html` in your browser
+2. Fill in the question details
+3. Click "Generate Question Code"
+4. Copy and paste into `questions.js`
+
+### 2. Comprehensive Guide (`ADD_QUESTIONS_GUIDE.md`)
+Complete documentation covering:
+- Question categories and topics
+- Official BAMF sources
+- Step-by-step instructions
+- Quality checklist
+- Common keywords to highlight
+- Tips and best practices
+
+### 3. State Question Template (`state_questions_complete.js`)
+Pre-formatted template showing the structure for all 10 questions per state
 
 ## Adding More Questions
 

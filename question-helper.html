@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Import Helper - Einbürgerungstest</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .output {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .form-group {
+            margin: 1.5rem 0;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        input[type="number"], input[type="text"], select {
+            padding: 0.5rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .answer-group {
+            background: #f8f9fa;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+        }
+        .correct-marker {
+            color: #27ae60;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Question Import Helper</h1>
+
+        <div class="instructions">
+            <h3>Instructions:</h3>
+            <ol>
+                <li>Download the official BAMF PDF from: <a href="https://www.bamf.de/SharedDocs/Anlagen/DE/Integration/Einbuergerung/gesamtfragenkatalog-lebenindeutschland.pdf" target="_blank">BAMF Official PDF</a></li>
+                <li>Fill in the form below for each question</li>
+                <li>Click "Generate Question Code"</li>
+                <li>Copy the generated code</li>
+                <li>Paste it into the questions.js file in the appropriate array (general or state-specific)</li>
+            </ol>
+        </div>
+
+        <div class="form-group">
+            <label>Question ID:</label>
+            <input type="number" id="questionId" placeholder="e.g., 61" value="61">
+        </div>
+
+        <div class="form-group">
+            <label>Question Type:</label>
+            <select id="questionType">
+                <option value="general">General Question</option>
+                <option value="state">State-Specific Question</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="stateGroup" style="display: none;">
+            <label>State Code:</label>
+            <select id="stateCode">
+                <option value="BW">Baden-Württemberg</option>
+                <option value="BY">Bayern (Bavaria)</option>
+                <option value="BE">Berlin</option>
+                <option value="BB">Brandenburg</option>
+                <option value="HB">Bremen</option>
+                <option value="HH">Hamburg</option>
+                <option value="HE">Hessen</option>
+                <option value="MV">Mecklenburg-Vorpommern</option>
+                <option value="NI">Niedersachsen</option>
+                <option value="NW">Nordrhein-Westfalen</option>
+                <option value="RP">Rheinland-Pfalz</option>
+                <option value="SL">Saarland</option>
+                <option value="SN">Sachsen</option>
+                <option value="ST">Sachsen-Anhalt</option>
+                <option value="SH">Schleswig-Holstein</option>
+                <option value="TH">Thüringen</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Category:</label>
+            <select id="category">
+                <option value="Politics & Democracy">Politics & Democracy</option>
+                <option value="History">History</option>
+                <option value="Society & Law">Society & Law</option>
+                <option value="Culture & Symbols">Culture & Symbols</option>
+                <option value="Europe & International">Europe & International</option>
+                <option value="Geography & Structure">Geography & Structure</option>
+                <option value="State Specific">State Specific</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Question Text (German):</label>
+            <textarea id="questionText" placeholder="Enter the question in German"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>English Translation:</label>
+            <textarea id="translation" placeholder="Enter the English translation"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Keywords (one per line, format: GermanWord=English translation):</label>
+            <textarea id="keywords" placeholder="Grundgesetz=Basic Law&#10;Regierung=government"></textarea>
+        </div>
+
+        <h3>Answer Options:</h3>
+
+        <div class="answer-group">
+            <label>Answer 1:</label>
+            <textarea id="answer1" placeholder="Answer option 1"></textarea>
+            <label><input type="radio" name="correct" value="0"> Mark as correct answer</label>
+        </div>
+
+        <div class="answer-group">
+            <label>Answer 2:</label>
+            <textarea id="answer2" placeholder="Answer option 2"></textarea>
+            <label><input type="radio" name="correct" value="1"> Mark as correct answer</label>
+        </div>
+
+        <div class="answer-group">
+            <label>Answer 3:</label>
+            <textarea id="answer3" placeholder="Answer option 3"></textarea>
+            <label><input type="radio" name="correct" value="2"> Mark as correct answer</label>
+        </div>
+
+        <div class="answer-group">
+            <label>Answer 4:</label>
+            <textarea id="answer4" placeholder="Answer option 4"></textarea>
+            <label><input type="radio" name="correct" value="3"> Mark as correct answer</label>
+        </div>
+
+        <button onclick="generateQuestion()">Generate Question Code</button>
+        <button onclick="clearForm()" style="background: #95a5a6;">Clear Form</button>
+
+        <h3>Generated Code:</h3>
+        <div class="output" id="output">Your generated code will appear here...</div>
+
+        <div class="instructions" style="margin-top: 2rem;">
+            <h3>Adding Keywords:</h3>
+            <p>To highlight important German terms in your questions and answers:</p>
+            <ol>
+                <li>Wrap the term in the question/answer text like: <code>&lt;span class='keyword' title='English'&gt;GermanWord&lt;/span&gt;</code></li>
+                <li>Add it to the keywords list above</li>
+                <li>Example: <code>&lt;span class='keyword' title='Basic Law'&gt;Grundgesetz&lt;/span&gt;</code></li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('questionType').addEventListener('change', function() {
+            document.getElementById('stateGroup').style.display =
+                this.value === 'state' ? 'block' : 'none';
+        });
+
+        function generateQuestion() {
+            const id = document.getElementById('questionId').value;
+            const questionText = document.getElementById('questionText').value;
+            const translation = document.getElementById('translation').value;
+            const category = document.getElementById('category').value;
+            const keywordsText = document.getElementById('keywords').value;
+
+            // Parse keywords
+            const keywordsObj = {};
+            if (keywordsText.trim()) {
+                keywordsText.trim().split('\n').forEach(line => {
+                    const [german, english] = line.split('=').map(s => s.trim());
+                    if (german && english) {
+                        keywordsObj[german] = english;
+                    }
+                });
+            }
+
+            // Get answers
+            const answers = [];
+            const correctIndex = document.querySelector('input[name="correct"]:checked')?.value;
+
+            for (let i = 1; i <= 4; i++) {
+                const answerText = document.getElementById(`answer${i}`).value;
+                if (answerText.trim()) {
+                    answers.push({
+                        text: answerText.trim(),
+                        correct: (i - 1).toString() === correctIndex
+                    });
+                }
+            }
+
+            // Generate the code
+            const code = `{
+    id: ${id},
+    question: "${escapeString(questionText)}",
+    translation: "${escapeString(translation)}",
+    keywords: ${JSON.stringify(keywordsObj, null, 8).replace(/"([^"]+)":/g, '$1:')},
+    answers: [
+        ${answers.map(a => `{ text: "${escapeString(a.text)}", correct: ${a.correct} }`).join(',\n        ')}
+    ],
+    category: "${category}"
+},`;
+
+            document.getElementById('output').textContent = code;
+        }
+
+        function escapeString(str) {
+            return str.replace(/"/g, '\\"').replace(/\n/g, '\\n');
+        }
+
+        function clearForm() {
+            // Increment question ID
+            const currentId = parseInt(document.getElementById('questionId').value);
+            document.getElementById('questionId').value = currentId + 1;
+
+            // Clear text fields
+            document.getElementById('questionText').value = '';
+            document.getElementById('translation').value = '';
+            document.getElementById('keywords').value = '';
+            document.getElementById('answer1').value = '';
+            document.getElementById('answer2').value = '';
+            document.getElementById('answer3').value = '';
+            document.getElementById('answer4').value = '';
+
+            // Uncheck radio buttons
+            document.querySelectorAll('input[name="correct"]').forEach(r => r.checked = false);
+        }
+
+        // Set first answer as correct by default
+        document.querySelector('input[name="correct"][value="0"]').checked = true;
+    </script>
+</body>
+</html>
