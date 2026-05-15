@@ -299,9 +299,14 @@ class EinburgerungstestApp {
         const categories = new Set();
         this.getAvailableQuestions().forEach(q => categories.add(q.category));
         const sorted = Array.from(categories).sort();
-        // Preserve current selection
         const cur = select.value;
-        select.innerHTML = '<option value="all">All Categories</option>';
+        select.innerHTML = `
+            <option value="all">All Categories</option>
+            <option value="unstudied">Unstudied Only</option>
+            <option value="incorrect">Previously Incorrect</option>
+            <option value="bookmarks">Bookmarks Only</option>
+            <option disabled>──────────</option>
+        `;
         sorted.forEach(c => {
             const opt = document.createElement('option');
             opt.value = c;
