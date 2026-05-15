@@ -1,323 +1,134 @@
 # Einbürgerungstest - German Citizenship Test Preparation App
 
-An interactive, mobile-friendly web application to help prepare for the German Einbürgerungstest (citizenship test).
+An interactive, mobile-first, installable web app for the German **Einbürgerungstest** / **Leben in Deutschland Test**, covering all 460 official BAMF questions (300 general + 10 questions for each of the 16 federal states) with English translations, contextual memory tips, image-based questions, and a full exam simulation mode.
 
-## Features
+![Question Pool](https://img.shields.io/badge/Questions-460-blue) ![Source](https://img.shields.io/badge/Source-BAMF%2007.05.2025-orange) ![PWA](https://img.shields.io/badge/PWA-Installable-green)
 
-### 🎯 Core Features
+## ✨ Features
 
-- **State-Specific Questions**: Select your federal state to practice with state-specific questions
-- **Two Learning Modes**:
-  - **Training Mode**: Study at your own pace with instant feedback and English translations
-  - **Exam Mode**: Simulate the real test (33 questions, 60 minutes, need 17 correct to pass)
-- **Memory Techniques**: Keyword highlighting with English translations on hover
-- **Progress Tracking**: Automatic tracking of studied questions, correct answers, and success rate
-- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
+### 📚 Complete BAMF Catalog
+- **All 300 general questions** in the official order
+- **160 state-specific questions** (10 per Bundesland)
+- All **42 image-based questions** with embedded coats of arms, maps and historical photos
+- English translations of every question and every answer option
+- Contextual **background notes** for every question — the "why" behind the answer
+- Keyword highlighting with hover translations for hundreds of important German terms
 
-### 📚 Learning Tools
+### 🎯 Two Learning Modes
+- **Training Mode** — study at your own pace with instant feedback, filters by category / unstudied / previously incorrect / bookmarks, and a random-jump shuffle button
+- **Exam Mode** — authentic 33-question simulation (30 general + 3 state-specific), 60-minute countdown timer with color warnings, a navigable question grid, and a passing-threshold result screen (17/33 to pass)
+- **Review Mode** — after each exam, walk through every question and see what you got right or wrong
 
-- **Keyword Highlighting**: Important German terms are highlighted with hover translations
-- **English Translations**: Every question includes an English translation
-- **Memory Tips**: Feedback includes keyword definitions to aid memorization
-- **Instant Feedback**: See correct/incorrect answers immediately in training mode
-- **Review Mode**: After completing an exam, review all your answers
+### ⭐ Quality of Life
+- **Bookmarks** — star tricky questions and revisit them as a focused study set
+- **Category filter** — drill into Politics & Democracy, History, Society & Law, Culture & Symbols, Europe & International, Geography & Structure, or state-specific
+- **Progress tracking** — questions studied, unique correct answers, success rate, bookmark count — all persisted in `localStorage`
+- **Dark mode toggle** with system-respecting transitions
+- **Keyboard shortcuts** — `←` `→` to navigate, `1`–`4` to pick an answer, `R` for random, `B` to bookmark
+- **English-translation toggle** for when you want a pure-German drill
+- **Print-friendly** styles for offline study sheets
 
-### ⏱️ Exam Mode Features
+### 📱 PWA — Installable as an App
+- Service worker caches everything for **fully offline** use
+- Add to Home Screen on Android & iOS for an app-like experience (no app store needed)
+- Standalone display mode, theme color, splash screen
+- Tap an icon on your phone home screen → opens directly into the test
 
-- **Authentic Experience**: 33 questions (30 general + 3 state-specific)
-- **60-Minute Timer**: Visual countdown with color warnings
-- **Question Navigator**: Visual grid showing answered/unanswered questions
-- **Progress Tracking**: See how many questions you've answered
-- **Detailed Results**: View your score, percentage, and time taken
+### 🔒 Privacy
+- 100 % client-side: no servers, no analytics, no accounts. Progress lives in your browser only.
 
-## How the Real Test Works
+## 🚀 Getting Started
 
-### Test Structure
-- **Total Question Pool**: 310 general questions + 10 per state (160 state-specific total)
-- **Exam Format**: 33 multiple-choice questions
-  - 30 general questions
-  - 3 state-specific questions
-- **Time Limit**: 60 minutes
-- **Passing Score**: 17 out of 33 correct (≈51.5%)
-- **Question Type**: Multiple choice with 4 options each
+### Run locally
+```bash
+# Just open index.html in any modern browser, or:
+python3 -m http.server 8000
+# then visit http://localhost:8000
+```
 
-### Official Resources
-- [BAMF Official Site](https://www.bamf.de)
-- [Official Question Catalog (PDF)](https://www.bamf.de/SharedDocs/Anlagen/DE/Integration/Einbuergerung/gesamtfragenkatalog-lebenindeutschland.pdf)
+### Install on Android / iOS
+1. Open the site in Chrome (Android) or Safari (iOS)
+2. Tap the browser menu → "Add to Home screen" / "Install app"
+3. Launch from your home screen like any native app
 
-## Getting Started
+## 🧠 How the Real Test Works
 
-### Installation
+| Item | Value |
+|------|-------|
+| Total question pool | 300 general + 10 × 16 states = 460 |
+| Exam length | 33 multiple-choice questions |
+| Time limit | 60 minutes |
+| Passing score | 17 correct (≈ 51.5 %) |
+| Cost | €25, taken at any authorized test center / VHS |
 
-1. Clone or download this repository
-2. Open `index.html` in a web browser
-3. No installation or build process required!
+The official catalog is published by the **Bundesamt für Migration und Flüchtlinge (BAMF)**: [bamf.de](https://www.bamf.de). The PDF source bundled with this repo (`gesamtfragenkatalog-lebenindeutschland.pdf`, stand 07.05.2025) is the basis for the question database.
 
-### Usage
-
-1. **Select Your State**: Choose your federal state (Bundesland)
-2. **Choose a Mode**:
-   - **Training Mode**: Practice questions with immediate feedback
-   - **Exam Mode**: Take a simulated test
-3. **Study and Practice**: Use keyword highlights and translations to memorize
-4. **Track Progress**: Your progress is automatically saved in your browser
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 Einbürgerungstest/
-├── index.html          # Main HTML structure
-├── styles.css          # Responsive CSS styling
+├── index.html         # App shell
+├── styles.css         # Themed CSS (light + dark)
 ├── app.js             # Application logic
-├── questions.js       # Question database
-└── README.md          # Documentation
+├── questions.js       # Complete BAMF catalog (460 questions)
+├── manifest.json      # PWA manifest
+├── sw.js              # Service worker (offline cache)
+├── icons/             # App icons (SVG + 192 / 512 PNG)
+├── images/            # 42 question images (coats of arms, maps, …)
+├── gesamtfragenkatalog-lebenindeutschland.pdf   # Official BAMF source
+└── README.md
 ```
 
-## Current Question Database
+## 🛠 Question Format
 
-The app currently includes:
-- **60 sample general questions** covering:
-  - Politics & Democracy
-  - History
-  - Society & Law
-  - Culture & Symbols
-  - Europe & International
-  - Geography & Structure
-- **2 sample questions per state** (32 state-specific questions total)
-
-### Question Format
-
-Each question includes:
 ```javascript
 {
     id: 1,
-    question: "Question text with <span class='keyword' title='translation'>highlighted terms</span>",
-    translation: "English translation of the question",
-    keywords: {
-        "GermanWord": "English translation",
-        // ...
-    },
+    question: "In Deutschland dürfen Menschen offen etwas gegen die <span class='keyword' title='government'>Regierung</span> sagen, weil ...",
+    translation: "In Germany, people are allowed to openly say something against the government because...",
+    context: "Germany is a democratic constitutional state in which freedom of opinion (Article 5 GG) is protected …",
+    keywords: { "Regierung": "government", "Meinungsfreiheit": "freedom of opinion", … },
     answers: [
-        { text: "Answer text", correct: true/false },
-        // ... (4 answers total)
+        { text: "hier Religionsfreiheit gilt.",  translation: "freedom of religion applies here.",  correct: false },
+        { text: "die Menschen Steuern zahlen.",  translation: "people pay taxes.",                  correct: false },
+        { text: "die Menschen das Wahlrecht haben.", translation: "people have the right to vote.", correct: false },
+        { text: "hier Meinungsfreiheit gilt.",  translation: "freedom of expression applies here.", correct: true  }
     ],
-    category: "Category name"
+    category: "Politics & Democracy",
+    image: "images/q21.png"   // optional, used for image-based questions
 }
 ```
 
-## Adding More Questions
+## 🌍 Categories
 
-To add the remaining questions from the official BAMF catalog:
+- Politics & Democracy
+- History
+- Society & Law
+- Culture & Symbols
+- Europe & International
+- Geography & Structure
+- State Specific
 
-### 1. Download Official Questions
+## 🧪 Tech
 
-Download the official question catalog from:
-- [BAMF Official PDF](https://www.bamf.de/SharedDocs/Anlagen/DE/Integration/Einbuergerung/gesamtfragenkatalog-lebenindeutschland.pdf)
+- 100 % vanilla JavaScript (no framework, no build step)
+- ~800 KB total payload including all questions, translations and contexts
+- Works in Chrome / Edge 90+, Firefox 88+, Safari 14+, all mobile browsers
+- All progress stored in `localStorage`
 
-### 2. Add Questions to `questions.js`
+## 📜 License & Sources
 
-#### For General Questions:
-Add to the `questionsDatabase.general` array:
+This is an **unofficial** educational tool. The question content is © **Bundesamt für Migration und Flüchtlinge (BAMF)** and is reproduced here strictly for study purposes. For the official test you must register at a Volkshochschule (VHS) or another authorized test center.
 
-```javascript
-{
-    id: 61, // Next available ID
-    question: "Your question text here",
-    translation: "English translation",
-    keywords: {
-        "ImportantWord": "translation"
-    },
-    answers: [
-        { text: "Answer 1", correct: false },
-        { text: "Answer 2", correct: true },
-        { text: "Answer 3", correct: false },
-        { text: "Answer 4", correct: false }
-    ],
-    category: "Politics & Democracy" // or other category
-}
-```
+Translations and contextual notes are based on the publicly available "Leben in Deutschland" community datasets.
 
-#### For State-Specific Questions:
-Add to the respective state object in `questionsDatabase.states`:
+Sources:
+- [BAMF Gesamtfragenkatalog (PDF)](https://www.bamf.de/SharedDocs/Anlagen/DE/Integration/Einbuergerung/gesamtfragenkatalog-lebenindeutschland.pdf)
+- [BAMF Online Testcenter](https://oet.bamf.de/ords/oetut/f?p=514:1)
 
-```javascript
-"BW": {
-    name: "Baden-Württemberg",
-    questions: [
-        {
-            id: 301, // Unique ID
-            question: "State question...",
-            // ... same format as general questions
-        }
-    ]
-}
-```
+## 🎓 Disclaimer
 
-### 3. Adding Keywords
-
-To enhance memory learning, identify important German terms and add them:
-
-1. Wrap terms in the question/answer text:
-```html
-<span class='keyword' title='English translation'>GermanWord</span>
-```
-
-2. Add to the keywords object:
-```javascript
-keywords: {
-    "GermanWord": "English translation",
-    "AnotherWord": "another translation"
-}
-```
-
-### 4. Categories
-
-Use these categories for organization:
-- `Politics & Democracy`
-- `History`
-- `Society & Law`
-- `Culture & Symbols`
-- `Europe & International`
-- `Geography & Structure`
-- `State Specific` (for state questions)
-
-## Technical Details
-
-### Browser Compatibility
-- Chrome/Edge 90+
-- Firefox 88+
-- Safari 14+
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-### Storage
-- Uses `localStorage` for progress tracking
-- No server required
-- Data persists across sessions
-
-### Performance
-- Lightweight: ~50KB total (including sample questions)
-- Fast loading: < 1 second
-- No external dependencies
-
-## Features in Detail
-
-### Memory Techniques
-
-The app employs several memory enhancement techniques:
-
-1. **Spaced Repetition**: Track which questions you've answered correctly/incorrectly
-2. **Visual Learning**: Color-coded feedback (green for correct, red for incorrect)
-3. **Keyword Association**: Highlighted terms with instant translations
-4. **Context Learning**: See questions in German with English support
-5. **Active Recall**: Practice retrieving information from memory
-
-### Progress Tracking
-
-Your progress includes:
-- **Questions Studied**: Total unique questions you've attempted
-- **Correct Answers**: Number of questions answered correctly
-- **Success Rate**: Percentage of correct answers
-- **History**: Detailed history of correct/incorrect attempts per question
-
-### Responsive Design
-
-The app adapts to any screen size:
-- **Desktop**: Full-featured layout with side-by-side comparisons
-- **Tablet**: Optimized touch interface
-- **Mobile**: Simplified layout, larger touch targets
-- **All screens**: Easy-to-read fonts and proper spacing
-
-## Customization
-
-### Changing Colors
-
-Edit CSS variables in `styles.css`:
-
-```css
-:root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --success-color: #27ae60;
-    --danger-color: #e74c3c;
-    /* ... */
-}
-```
-
-### Modifying Exam Parameters
-
-In `app.js`, change:
-
-```javascript
-this.examTimeRemaining = 3600; // 60 minutes in seconds
-// For 30 questions instead of 33:
-for (let i = 0; i < 30; i++) { // Change from 30
-```
-
-### Adding Languages
-
-To add more language translations:
-1. Add translation field to questions: `translation_de: "..."`, `translation_fr: "..."`
-2. Add language selector in HTML
-3. Update `displayTrainingQuestion()` to use selected language
-
-## Contributing
-
-To contribute more questions or improvements:
-
-1. Fork the repository
-2. Add questions following the format above
-3. Test thoroughly in both modes
-4. Submit a pull request
-
-### Question Quality Checklist
-
-- [ ] Question text is accurate
-- [ ] All 4 answers are provided
-- [ ] Correct answer is marked properly
-- [ ] English translation is accurate
-- [ ] Important keywords are identified
-- [ ] Keywords have translations
-- [ ] Category is appropriate
-
-## License
-
-This is an unofficial educational tool. All official questions are property of the Bundesamt für Migration und Flüchtlinge (BAMF). Use this for study purposes only.
-
-## Disclaimer
-
-This is an **unofficial** practice tool. For the official test:
-- Register at your local Volkshochschule (VHS) or authorized test center
-- The official test costs 25 euros
-- You need to bring valid identification
-- Questions and format may vary from this practice tool
-
-**Always refer to official BAMF resources for the most current information.**
-
-## Support
-
-For issues or questions:
-- Check the [BAMF official website](https://www.bamf.de)
-- Review the official question catalog
-- Practice with multiple resources
-
-## Acknowledgments
-
-- Question content based on BAMF official catalog
-- Designed for educational purposes
-- Built with vanilla JavaScript for maximum compatibility
-
-## Roadmap
-
-Potential future enhancements:
-- [ ] Add all 310 general questions
-- [ ] Complete all state-specific questions
-- [ ] Add German audio pronunciation
-- [ ] Implement spaced repetition algorithm
-- [ ] Add study statistics and charts
-- [ ] Export/import progress data
-- [ ] Printable study sheets
-- [ ] Dark mode toggle
-- [ ] Multiple language support
+This app is for practice and learning only. The actual exam wording, image order and answer order may differ. Always refer to official BAMF resources before sitting the test.
 
 ---
 
