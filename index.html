@@ -2,45 +2,63 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Interactive German Citizenship Test (Einbürgerungstest) - Learn and memorize all questions with English translations">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Interactive German Citizenship Test (Einbürgerungstest) - All 460 official questions with English translations and memory tips">
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Einbürgerungstest">
     <title>Einbürgerungstest - German Citizenship Test</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="app-container">
         <!-- Header -->
         <header class="header">
-            <h1>🇩🇪 Einbürgerungstest</h1>
-            <p class="subtitle">German Citizenship Test Preparation</p>
+            <div class="header-content">
+                <div class="header-main">
+                    <h1>🇩🇪 Einbürgerungstest</h1>
+                    <p class="subtitle">German Citizenship Test Preparation</p>
+                </div>
+                <div class="header-actions">
+                    <span id="selected-state-badge" class="state-badge" style="display:none;"></span>
+                    <button id="theme-toggle-btn" class="icon-btn" aria-label="Toggle theme" title="Toggle dark mode">🌙</button>
+                </div>
+            </div>
         </header>
 
-        <!-- Main Container -->
         <main class="main-content">
             <!-- State Selection Screen -->
             <div id="state-selection" class="screen active">
                 <div class="card">
                     <h2>Wählen Sie Ihr Bundesland</h2>
-                    <p class="help-text">Choose your federal state - This is required for state-specific questions</p>
+                    <p class="help-text">Choose your federal state — this determines the state-specific questions you'll practice</p>
 
                     <div class="state-grid">
-                        <button class="state-btn" data-state="BW">Baden-Württemberg</button>
-                        <button class="state-btn" data-state="BY">Bayern (Bavaria)</button>
-                        <button class="state-btn" data-state="BE">Berlin</button>
-                        <button class="state-btn" data-state="BB">Brandenburg</button>
-                        <button class="state-btn" data-state="HB">Bremen</button>
-                        <button class="state-btn" data-state="HH">Hamburg</button>
-                        <button class="state-btn" data-state="HE">Hessen</button>
-                        <button class="state-btn" data-state="MV">Mecklenburg-Vorpommern</button>
-                        <button class="state-btn" data-state="NI">Niedersachsen (Lower Saxony)</button>
-                        <button class="state-btn" data-state="NW">Nordrhein-Westfalen</button>
-                        <button class="state-btn" data-state="RP">Rheinland-Pfalz</button>
-                        <button class="state-btn" data-state="SL">Saarland</button>
-                        <button class="state-btn" data-state="SN">Sachsen (Saxony)</button>
-                        <button class="state-btn" data-state="ST">Sachsen-Anhalt</button>
-                        <button class="state-btn" data-state="SH">Schleswig-Holstein</button>
-                        <button class="state-btn" data-state="TH">Thüringen</button>
+                        <button class="state-btn" data-state="BW">🏰 Baden-Württemberg</button>
+                        <button class="state-btn" data-state="BY">🍺 Bayern (Bavaria)</button>
+                        <button class="state-btn" data-state="BE">🐻 Berlin</button>
+                        <button class="state-btn" data-state="BB">🌲 Brandenburg</button>
+                        <button class="state-btn" data-state="HB">⚓ Bremen</button>
+                        <button class="state-btn" data-state="HH">🚢 Hamburg</button>
+                        <button class="state-btn" data-state="HE">🦁 Hessen</button>
+                        <button class="state-btn" data-state="MV">⚓ Mecklenburg-Vorpommern</button>
+                        <button class="state-btn" data-state="NI">🐎 Niedersachsen (Lower Saxony)</button>
+                        <button class="state-btn" data-state="NW">🏭 Nordrhein-Westfalen</button>
+                        <button class="state-btn" data-state="RP">🍷 Rheinland-Pfalz</button>
+                        <button class="state-btn" data-state="SL">🏰 Saarland</button>
+                        <button class="state-btn" data-state="SN">⚒️ Sachsen (Saxony)</button>
+                        <button class="state-btn" data-state="ST">🏛️ Sachsen-Anhalt</button>
+                        <button class="state-btn" data-state="SH">🌊 Schleswig-Holstein</button>
+                        <button class="state-btn" data-state="TH">🌲 Thüringen</button>
                     </div>
+                    <p class="help-text" style="margin-top:1.5rem; text-align:center;" id="global-stats">
+                        300 general + 16 states × 10 = 460 questions
+                    </p>
                 </div>
             </div>
 
@@ -48,13 +66,13 @@
             <div id="mode-selection" class="screen">
                 <div class="card">
                     <h2>Wählen Sie einen Modus</h2>
-                    <p class="help-text">Choose a mode to begin your preparation</p>
+                    <p class="help-text">Choose a learning mode</p>
 
                     <div class="mode-buttons">
                         <button id="training-mode-btn" class="mode-btn primary">
                             <span class="mode-icon">📚</span>
                             <h3>Training Mode</h3>
-                            <p>Study all questions at your own pace with instant feedback and English translations</p>
+                            <p>Study all questions at your own pace with instant feedback, English translations and memory tips</p>
                         </button>
 
                         <button id="exam-mode-btn" class="mode-btn secondary">
@@ -62,43 +80,72 @@
                             <h3>Exam Mode</h3>
                             <p>Simulate the real test: 33 questions, 60 minutes, need 17 correct to pass</p>
                         </button>
+
+                        <button id="bookmarks-btn" class="mode-btn tertiary">
+                            <span class="mode-icon">⭐</span>
+                            <h3>My Bookmarks</h3>
+                            <p>Review questions you've marked for later study</p>
+                        </button>
                     </div>
 
                     <div class="progress-stats">
                         <h3>Your Progress</h3>
                         <div class="stat-item">
                             <span>Questions Studied:</span>
-                            <strong id="studied-count">0</strong>
+                            <strong id="studied-count">0 / 0</strong>
                         </div>
                         <div class="stat-item">
-                            <span>Correct Answers:</span>
+                            <span>Unique Correctly Answered:</span>
                             <strong id="correct-count">0</strong>
                         </div>
                         <div class="stat-item">
-                            <span>Success Rate:</span>
+                            <span>Overall Success Rate:</span>
                             <strong id="success-rate">0%</strong>
+                        </div>
+                        <div class="stat-item">
+                            <span>Bookmarks:</span>
+                            <strong id="bookmark-count">0</strong>
                         </div>
                     </div>
 
-                    <button id="change-state-btn" class="link-btn">Change Federal State</button>
+                    <div class="action-row">
+                        <button id="change-state-btn" class="link-btn">Change Federal State</button>
+                        <button id="reset-progress-btn" class="link-btn danger">Reset Progress</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Training Mode Screen -->
             <div id="training-screen" class="screen">
                 <div class="quiz-header">
-                    <button id="back-to-menu" class="back-btn">← Back to Menu</button>
+                    <button id="back-to-menu" class="back-btn">← Menu</button>
+                    <div class="quiz-controls">
+                        <select id="category-filter" aria-label="Filter by category">
+                            <option value="all">All Categories</option>
+                            <option value="unstudied">Unstudied</option>
+                            <option value="incorrect">Previously Incorrect</option>
+                            <option value="bookmarks">Bookmarks Only</option>
+                        </select>
+                        <button id="toggle-translation-btn" class="small-btn" title="Toggle English translations">🇬🇧 Hide English</button>
+                        <button id="random-btn" class="small-btn" title="Jump to a random question (R key)">🎲 Random</button>
+                        <button id="bookmark-btn" class="small-btn" title="Bookmark (B key)">☆ Bookmark</button>
+                    </div>
+                </div>
+
+                <div class="progress-bar-container">
                     <div class="progress-bar">
                         <div class="progress-fill" id="progress-fill"></div>
-                        <span class="progress-text" id="progress-text">Question 1 / 310</span>
+                        <span class="progress-text" id="progress-text">Question 1 / 1</span>
                     </div>
                 </div>
 
                 <div class="card quiz-card">
                     <div class="question-header">
-                        <span class="question-number" id="question-number">Question 1</span>
+                        <span class="question-number" id="question-number">#1</span>
                         <span class="question-category" id="question-category">General</span>
                     </div>
+
+                    <img id="question-image" class="question-image" style="display:none;" alt="Question image">
 
                     <h3 class="question-text" id="question-text"></h3>
                     <p class="question-translation" id="question-translation"></p>
@@ -108,9 +155,10 @@
                     <div class="feedback" id="feedback"></div>
 
                     <div class="navigation-buttons">
-                        <button id="prev-btn" class="nav-btn" disabled>← Previous</button>
+                        <button id="prev-btn" class="nav-btn">← Previous</button>
                         <button id="next-btn" class="nav-btn">Next →</button>
                     </div>
+                    <p class="keyboard-hint">⌨️ Keys: ← → navigate · 1–4 select answer · R random · B bookmark</p>
                 </div>
             </div>
 
@@ -119,7 +167,7 @@
                 <div class="exam-header">
                     <button id="exit-exam-btn" class="back-btn">← Exit Exam</button>
                     <div class="exam-timer">
-                        <span class="timer-label">Time Remaining:</span>
+                        <span class="timer-label">⏱️</span>
                         <span class="timer-display" id="timer-display">60:00</span>
                     </div>
                 </div>
@@ -129,12 +177,14 @@
                         <span class="question-number" id="exam-question-number">Question 1 / 33</span>
                     </div>
 
+                    <img id="exam-question-image" class="question-image" style="display:none;" alt="Question image">
+
                     <h3 class="question-text" id="exam-question-text"></h3>
 
                     <div class="answers" id="exam-answers-container"></div>
 
                     <div class="exam-navigation">
-                        <button id="exam-prev-btn" class="nav-btn" disabled>← Previous</button>
+                        <button id="exam-prev-btn" class="nav-btn">← Previous</button>
                         <span class="answered-count" id="answered-count">Answered: 0 / 33</span>
                         <button id="exam-next-btn" class="nav-btn">Next →</button>
                     </div>
@@ -178,10 +228,9 @@
             </div>
         </main>
 
-        <!-- Footer -->
         <footer class="footer">
-            <p>Unofficial practice tool for the German Einbürgerungstest</p>
-            <p>Study the official BAMF materials at <a href="https://www.bamf.de" target="_blank">www.bamf.de</a></p>
+            <p>Unofficial practice tool · Based on the BAMF Gesamtfragenkatalog (Stand 07.05.2025)</p>
+            <p>Official resources: <a href="https://www.bamf.de" target="_blank" rel="noopener">www.bamf.de</a></p>
         </footer>
     </div>
 
